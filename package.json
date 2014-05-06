@@ -2,7 +2,8 @@
   "name": "unreplied_tender_discussions",
   "version": "0.0.0",
   "dependencies": {
-    "async": "0.2.9"
+    "async": "0.2.9",
+    "underscore": "1.6.0"
   },
   "devDependencies": {}
 }
