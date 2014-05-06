@@ -11,6 +11,11 @@ Gives you a list of discussions of your Tender support site that nobody has repl
 * Add your Tender sitename and API key in index.js
 * Run "node index.js"
 
+# Execution
+
+```
+./bin/tender_discussions --apikey YOUR_TENDER_API_KEY --site YOUR_TENDER_SITENAME
+```
 
 # TODO
 
