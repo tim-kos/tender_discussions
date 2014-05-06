@@ -20,5 +20,4 @@ Gives you a list of discussions of your Tender support site that nobody has repl
 # TODO
 
 * Add Campfire notification support
-* Also return subject in response
 * Write some tests
