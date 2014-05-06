@@ -1,21 +1,19 @@
 #!/usr/bin/env node
 
 var program = require('commander');
+var DiscussionFetcher = require('../lib/discussion_fetcher').DiscussionFetcher;
 
 program
   .version('0.0.1')
-  .option('-s, --site', 'Tender site name')
-  .option('-k, --apikey', 'Tender api key')
+  .option('-s, --site <s>', 'Tender site name')
+  .option('-k, --apikey <s>', 'Tender api key')
   .parse(process.argv);
-
-var DiscussionFetcher = require('./lib/discussion_fetcher').DiscussionFetcher;
 
 var opts = {
   site   : program.site,
   apiKey : program.apikey,
-  state  : 'pending' // the discussion state, can be "new", "open" or "pending"
+  state  : 'new' // the discussion state, can be "new", "open" or "pending"
 };
-console.log(opts);
 
 var fetcher = new DiscussionFetcher(opts);
 fetcher.fetch(function(err, discussions) {
