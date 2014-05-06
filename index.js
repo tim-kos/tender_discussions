@@ -15,7 +15,6 @@ var opts = {
   apiKey : program.apikey,
   state  : 'pending' // the discussion state, can be "new", "open" or "pending"
 };
-console.log(opts);
 
 var fetcher = new DiscussionFetcher(opts);
 fetcher.fetch(function(err, discussions) {
