@@ -5,14 +5,15 @@ var DiscussionFetcher = require('../lib/discussion_fetcher').DiscussionFetcher;
 
 program
   .version('0.0.1')
-  .option('-s, --site <s>', 'Tender site name')
+  .option('-n, --sitename <s>', 'Tender site name')
   .option('-k, --apikey <s>', 'Tender api key')
+  .option('-s, --state [new]', 'Discussion state, can be new, open or pending')
   .parse(process.argv);
 
 var opts = {
-  site   : program.site,
+  site   : program.sitename,
   apiKey : program.apikey,
-  state  : 'new' // the discussion state, can be "new", "open" or "pending"
+  state  : program.state
 };
 
 var fetcher = new DiscussionFetcher(opts);
