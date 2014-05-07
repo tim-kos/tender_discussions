@@ -14,11 +14,13 @@ Gives you a list of discussions of your Tender support site that nobody has repl
 # Execution
 
 ```
-./bin/tender_discussions --apikey YOUR_TENDER_API_KEY --site YOUR_TENDER_SITENAME
+./bin/tender_discussions --tenderapikey YOUR_TENDER_API_KEY --tendersitename YOUR_TENDER_SITENAME --state pending --campfireaccount YOUR_CAMPFIRE_ACCOUNT --campfirekey YOUR_CAMPFIRE_KEY --campfireroom YOUR_CAMPFIRE_ROOM_ID
+
+
 ```
 
 # TODO
 
-- [] Convert to coffeescript
 - [] Support config from environment variables
+- [] Convert to coffeescript
 - [] Write some tests
