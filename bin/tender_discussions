@@ -1,26 +1,60 @@
 #!/usr/bin/env node
 
 var program = require('commander');
-var DiscussionFetcher = require('../lib/discussion_fetcher').DiscussionFetcher;
+var ranger = require('ranger');
 
 program
   .version('0.0.1')
-  .option('-n, --sitename <s>', 'Tender site name')
-  .option('-k, --apikey <s>', 'Tender api key')
+  .option('-n, --tendersitename <s>', 'Tender site name')
+  .option('-k, --tenderapikey <s>', 'Tender api key')
   .option('-s, --state [new]', 'Discussion state, can be new, open or pending')
+  .option('-ca, --campfireaccount <s>', 'Campfire account')
+  .option('-ck, --campfirekey <s>', 'Campfire api key')
+  .option('-cr, --campfireroom <s>', 'Campfire room name')
   .parse(process.argv);
 
-var opts = {
-  site   : program.sitename,
-  apiKey : program.apikey,
-  state  : program.state
+var DiscussionFetcher = require('../lib/discussion_fetcher').DiscussionFetcher;
+
+function DiscussionReporter() {
+
+}
+
+DiscussionReporter.prototype.report = function() {
+  var self = this;
+  var opts = {
+    site   : program.tendersitename,
+    apiKey : program.tenderapikey,
+    state  : program.state
+  };
+
+  var fetcher = new DiscussionFetcher(opts);
+  fetcher.fetch(function(err, discussions) {
+    if (err) {
+      throw err;
+    }
+
+    if (discussions.length > 0) {
+      console.log(discussions);
+      self._reportToCampfire(discussions);
+    }
+  });
 };
 
-var fetcher = new DiscussionFetcher(opts);
-fetcher.fetch(function(err, discussions) {
-  if (err) {
-    throw err;
+DiscussionReporter.prototype._reportToCampfire = function(discussions, cb) {
+  if (!program.campfireaccount) {
+    return cb();
   }
 
-  console.log(discussions);
-});
+  var client = ranger.createClient(program.campfireaccount, program.campfirekey);
+
+  var msg = "Tender discussions that we should attend to:\n";
+  msg += discussions.join("\n");
+
+  client.room(program.campfireroom, function(theRoom) {
+    theRoom.paste(msg, cb);
+  });
+};
+
+var reporter = new DiscussionReporter();
+reporter.report();
+

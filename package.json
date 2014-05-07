@@ -4,7 +4,8 @@
   "dependencies": {
     "async": "0.2.9",
     "underscore": "1.6.0",
-    "commander": "2.2.0"
+    "commander": "2.2.0",
+    "ranger": "0.2.4"
   },
   "devDependencies": {}
 }
