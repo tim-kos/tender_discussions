@@ -4,11 +4,11 @@ COFFEELINT = node_modules/.bin/coffeelint
 MOCHA      = node_modules/.bin/mocha --compilers coffee:coffee-script --require "coffee-script/register"
 REPORTER   = nyan
 
-test:
+test: build
 	@make lint || true
 	$(MOCHA) --reporter $(REPORTER)
 
-build:
+build: lint
 	$(COFFEE) --compile --output lib src
 
 lint:
