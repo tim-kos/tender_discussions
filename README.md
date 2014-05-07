@@ -24,11 +24,9 @@ You can supply all credentials over the command line:
 source env.sh && ./bin/tender_discussions --state pending
 ```
 
-Cli arguments take precedence over the env variables.
-
+Cli arguments take precedence over the env variables if you provide both.
 
 
 # TODO
 
-- [] Convert to coffeescript
 - [] Write some tests

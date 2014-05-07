@@ -5,7 +5,8 @@
     "async": "0.2.9",
     "underscore": "1.6.0",
     "commander": "2.2.0",
-    "ranger": "0.2.4"
+    "ranger": "0.2.4",
+    "coffee-script": "1.7.1"
   },
   "devDependencies": {}
 }

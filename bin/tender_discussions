@@ -1,69 +1,7 @@
 #!/usr/bin/env node
 
-var program = require('commander');
-var ranger = require('ranger');
-
-program
-  .version('0.0.1')
-  .option('-n, --tendersitename []', 'Tender site name')
-  .option('-k, --tenderapikey []', 'Tender api key')
-  .option('-s, --state [new]', 'Discussion state, can be new, open or pending')
-  .option('-ca, --campfireaccount []', 'Campfire account')
-  .option('-ck, --campfirekey []', 'Campfire api key')
-  .option('-cr, --campfireroom []', 'Campfire room name')
-  .parse(process.argv);
-
-var DiscussionFetcher = require('../lib/discussion_fetcher').DiscussionFetcher;
-
-function DiscussionReporter() {
-  this.tenderSite   = program.tendersitename || process.env.TENDER_SITENAME;
-  this.tenderApiKey = program.tenderapikey || process.env.TENDER_APIKEY;
-  
-  this.campfireAcc  = program.campfireaccount || process.env.CAMPFIRE_ACCOUNT;
-  this.campfireKey  = program.campfirekey || process.env.CAMPFIRE_KEY;
-  this.campfireRoom = program.campfireroom || process.env.CAMPFIRE_ROOM;
-}
-
-DiscussionReporter.prototype.report = function() {
-  if (!this.tenderSite || !this.tenderApiKey) {
-    throw new Error('You need to supply Tender credentials!');
-  }
-
-  var self = this;
-  var opts = {
-    site   : this.tenderSite,
-    apiKey : this.tenderApiKey,
-    state  : program.state
-  };
-
-  var fetcher = new DiscussionFetcher(opts);
-  fetcher.fetch(function(err, discussions) {
-    if (err) {
-      throw err;
-    }
-
-    if (discussions.length > 0) {
-      console.log(discussions);
-      self._reportToCampfire(discussions);
-    }
-  });
-};
-
-DiscussionReporter.prototype._reportToCampfire = function(discussions, cb) {
-  if (!this.campfireAcc) {
-    return cb();
-  }
-
-  var client = ranger.createClient(this.campfireAcc, this.campfireKey);
-
-  var msg = "Tender discussions that we should attend to:\n";
-  msg += discussions.join("\n");
-
-  client.room(this.campfireRoom, function(theRoom) {
-    theRoom.paste(msg, cb);
-  });
-};
+var coffee             = require('coffee-script/register');
+var DiscussionReporter = require('../lib/discussion_reporter');
 
 var reporter = new DiscussionReporter();
 reporter.report();
-
