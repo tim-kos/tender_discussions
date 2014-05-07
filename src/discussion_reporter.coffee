@@ -46,7 +46,8 @@ class DiscussionReporter
     client = ranger.createClient @campfireAcc, @campfireKey
 
     msg = "Tender discussions that we should attend to:\n"
-    msg += discussions.join "\n"
+    for discussion in discussions
+      msg += discussion.title + ": " + discussion.href + "\n"
 
     client.room @campfireRoom, (theRoom) ->
       theRoom.paste msg, cb

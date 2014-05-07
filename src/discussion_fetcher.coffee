@@ -67,7 +67,9 @@ class DiscussionFetcher
       for num in [0..parsed.discussions.length - 1]
         discussion = parsed.discussions[num]
 
-        entry = discussion.title + " -- " + discussion.html_href
+        entry =
+          title : discussion.title
+          href  : discussion.html_href
         @discussions.push entry
 
       if page == 1
