@@ -5,25 +5,34 @@ var ranger = require('ranger');
 
 program
   .version('0.0.1')
-  .option('-n, --tendersitename <s>', 'Tender site name')
-  .option('-k, --tenderapikey <s>', 'Tender api key')
+  .option('-n, --tendersitename []', 'Tender site name')
+  .option('-k, --tenderapikey []', 'Tender api key')
   .option('-s, --state [new]', 'Discussion state, can be new, open or pending')
-  .option('-ca, --campfireaccount <s>', 'Campfire account')
-  .option('-ck, --campfirekey <s>', 'Campfire api key')
-  .option('-cr, --campfireroom <s>', 'Campfire room name')
+  .option('-ca, --campfireaccount []', 'Campfire account')
+  .option('-ck, --campfirekey []', 'Campfire api key')
+  .option('-cr, --campfireroom []', 'Campfire room name')
   .parse(process.argv);
 
 var DiscussionFetcher = require('../lib/discussion_fetcher').DiscussionFetcher;
 
 function DiscussionReporter() {
-
+  this.tenderSite   = program.tendersitename || process.env.TENDER_SITENAME;
+  this.tenderApiKey = program.tenderapikey || process.env.TENDER_APIKEY;
+  
+  this.campfireAcc  = program.campfireaccount || process.env.CAMPFIRE_ACCOUNT;
+  this.campfireKey  = program.campfirekey || process.env.CAMPFIRE_KEY;
+  this.campfireRoom = program.campfireroom || process.env.CAMPFIRE_ROOM;
 }
 
 DiscussionReporter.prototype.report = function() {
+  if (!this.tenderSite || !this.tenderApiKey) {
+    throw new Error('You need to supply Tender credentials!');
+  }
+
   var self = this;
   var opts = {
-    site   : program.tendersitename,
-    apiKey : program.tenderapikey,
+    site   : this.tenderSite,
+    apiKey : this.tenderApiKey,
     state  : program.state
   };
 
@@ -41,16 +50,16 @@ DiscussionReporter.prototype.report = function() {
 };
 
 DiscussionReporter.prototype._reportToCampfire = function(discussions, cb) {
-  if (!program.campfireaccount) {
+  if (!this.campfireAcc) {
     return cb();
   }
 
-  var client = ranger.createClient(program.campfireaccount, program.campfirekey);
+  var client = ranger.createClient(this.campfireAcc, this.campfireKey);
 
   var msg = "Tender discussions that we should attend to:\n";
   msg += discussions.join("\n");
 
-  client.room(program.campfireroom, function(theRoom) {
+  client.room(this.campfireRoom, function(theRoom) {
     theRoom.paste(msg, cb);
   });
 };

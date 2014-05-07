@@ -21,6 +21,5 @@ Gives you a list of discussions of your Tender support site that nobody has repl
 
 # TODO
 
-- [] Support config from environment variables
 - [] Convert to coffeescript
 - [] Write some tests

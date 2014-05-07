@@ -1,0 +1,5 @@
+export TENDER_SITENAME=""
+export TENDER_APIKEY=""
+export CAMPFIRE_ACCOUNT=""
+export CAMPFIRE_KEY=""
+export CAMPFIRE_ROOM=""
