@@ -19,5 +19,6 @@ Gives you a list of discussions of your Tender support site that nobody has repl
 
 # TODO
 
-- [ ] Add Campfire notification support
-- [ ] Write some tests
+- [] Convert to coffeescript
+- [] Support config from environment variables
+- [] Write some tests
