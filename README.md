@@ -8,16 +8,25 @@ Gives you a list of discussions of your Tender support site that nobody has repl
 
 * Clone or fork this repo
 * Run `npm install .`
-* Add your Tender sitename and API key in `index.js`
-* Run `node index.js`
 
 # Execution
 
+You can supply all credentials over the command line:
+
 ```
 ./bin/tender_discussions --tenderapikey YOUR_TENDER_API_KEY --tendersitename YOUR_TENDER_SITENAME --state pending --campfireaccount YOUR_CAMPFIRE_ACCOUNT --campfirekey YOUR_CAMPFIRE_KEY --campfireroom YOUR_CAMPFIRE_ROOM_ID
+```
+
+... or you can supply them through environment variables. Just copy **env.default.sh** into an **env.sh** file, fill out all the credentials there and then run:
 
 
 ```
+source env.sh && ./bin/tender_discussions --state pending
+```
+
+Cli arguments take precedence over the env variables.
+
+
 
 # TODO
 
