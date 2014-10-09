@@ -11,16 +11,16 @@
     "type": "git",
     "url": "https://github.com/tim-kos/tender_discussions"
   },
-  "version": "0.1.0",
+  "version": "0.1.2",
   "main": "./bin/tender_discussions",
   "bin": {
     "tender_discussions": "./bin/tender_discussions"
   },
   "dependencies": {
     "async": "0.2.9",
-    "underscore": "1.6.0",
     "commander": "2.2.0",
-    "ranger": "0.2.4"
+    "ranger": "0.2.4",
+    "underscore": "1.6.0"
   },
   "devDependencies": {
     "coffee-script": "1.7.1",

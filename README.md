@@ -6,6 +6,10 @@ Gives you a list of discussions of your Tender support site that nobody has repl
 
 # Installation
 
+`npm install --save tender-discussions`
+
+or
+
 * Clone or fork this repo
 * Run `npm install .`
 
