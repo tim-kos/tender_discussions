@@ -11,7 +11,7 @@
     "type": "git",
     "url": "https://github.com/tim-kos/tender_discussions"
   },
-  "version": "0.1.2",
+  "version": "0.2.0",
   "main": "./bin/tender_discussions",
   "bin": {
     "tender_discussions": "./bin/tender_discussions"
