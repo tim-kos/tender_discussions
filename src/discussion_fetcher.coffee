@@ -4,8 +4,9 @@ _            = require "underscore"
 
 class DiscussionFetcher
   constructor: (opts) ->
-    @apiKey = opts.apiKey || null
-    @site   = opts.site   || null
+    @apiKey = opts.apiKey || process.env.TENDER_SITENAME || null
+    @site   = opts.site   || process.env.TENDER_APIKEY || null
+
     @state  = opts.state  || "pending"
 
     @url = @_buildUrl()
@@ -29,7 +30,7 @@ class DiscussionFetcher
     err = @_validates()
     if err
       return cb err
-   
+
     @_fetchPage 1, =>
       if @pageCount < 2
         return @_end cb
